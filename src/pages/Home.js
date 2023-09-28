@@ -1,9 +1,10 @@
 import QuizCard from "../components/QuizCard";
 
-export default function Home() {
+export default function Home({ results }) {
+  console.log(results);
   return (
     <>
-      <QuizCard>What property flips the axes in flexbox?</QuizCard>
+      <QuizCard results={results} />
     </>
   );
 }

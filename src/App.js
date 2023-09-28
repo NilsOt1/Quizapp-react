@@ -19,7 +19,7 @@ function App() {
   if (error) return <p>{error.message}</p>;
   if (isLoading) return <p>loading...</p>;
 
-  console.log(data.results);
+  const results = data.results;
 
   return (
     <>
@@ -33,7 +33,7 @@ function App() {
       <Header />
       <Footer />
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Home results={results} />} />
         <Route path="/Bookmarks" element={<Bookmarks />} />
         <Route path="/Form" element={<Form />} />
         <Route path="/Profil" element={<Profil />} />
