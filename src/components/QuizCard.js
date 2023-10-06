@@ -1,20 +1,41 @@
 import styled from "styled-components";
 
 export default function QuizCard({ results }) {
+  function correctAnswer(event) {
+    event.target.style.backgroundColor = "green";
+    setTimeout(function () {
+      event.target.style.backgroundColor = "white";
+    }, 3000);
+  }
+
+  function wrongAnswer(event) {
+    event.target.style.backgroundColor = "red";
+    setTimeout(function () {
+      event.target.style.backgroundColor = "white";
+    }, 3000);
+  }
+
   return (
     <>
       {results.map((result, index) => {
-        console.log(result);
         return (
           <StyledQuestionCard className="card" data-js="card" key={index}>
             <p className="question" data-js="question">
               {result.question}
             </p>
             <StyledList>
-              <StyledAnswers>{result.incorrect_answers[0]}</StyledAnswers>
-              <StyledAnswers>{result.incorrect_answers[1]}</StyledAnswers>
-              <StyledAnswers>{result.incorrect_answers[2]}</StyledAnswers>
-              <StyledAnswers>{result.correct_answer}</StyledAnswers>
+              <StyledAnswers onClick={wrongAnswer}>
+                {result.incorrect_answers[0]}
+              </StyledAnswers>
+              <StyledAnswers onClick={wrongAnswer}>
+                {result.incorrect_answers[1]}
+              </StyledAnswers>
+              <StyledAnswers onClick={wrongAnswer}>
+                {result.incorrect_answers[2]}
+              </StyledAnswers>
+              <StyledAnswers onClick={correctAnswer}>
+                {result.correct_answer}
+              </StyledAnswers>
             </StyledList>
           </StyledQuestionCard>
         );
