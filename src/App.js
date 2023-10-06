@@ -1,6 +1,5 @@
 import { Routes, Route } from "react-router-dom";
 import useSWR from "swr";
-import { SWRConfig } from "swr";
 import Header from "./components/Header";
 import Bookmarks from "./pages/Bookmarks";
 import Home from "./pages/Home";
@@ -8,28 +7,28 @@ import Form from "./pages/Form";
 import Profil from "./pages/Profil";
 import Footer from "./components/Footer";
 
-const fetcher = (...args) => fetch(...args).then((res) => res.json());
-
 function App() {
-  const { data, error, isLoading } = useSWR(
-    "https://opentdb.com/api.php?amount=10&category=27&difficulty=easy&type=multiple",
-    fetcher
-  );
+  const apiUrl =
+    "https://opentdb.com/api.php?amount=10&category=27&difficulty=easy&type=multiple";
 
-  if (error) return <p>{error.message}</p>;
-  if (isLoading) return <p>loading...</p>;
+  const { data, error } = useSWR(apiUrl, async (url) => {
+    const response = await fetch(url);
+    const data = await response.json();
+
+    return data;
+  });
+
+  if (error) {
+    return <p>Fehler beim Laden der Daten</p>;
+  }
+  if (!data) {
+    return <p>Daten werden geladen...</p>;
+  }
 
   const results = data.results;
 
   return (
     <>
-      <SWRConfig
-        value={{
-          fetcher,
-          refreshInterval: 10000,
-        }}
-      ></SWRConfig>
-
       <Header />
       <Footer />
       <Routes>
