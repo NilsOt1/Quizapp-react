@@ -19,10 +19,8 @@ export default function QuizCard({ results }) {
     <>
       {results.map((result, index) => {
         return (
-          <StyledQuestionCard className="card" data-js="card" key={index}>
-            <p className="question" data-js="question">
-              {result.question}
-            </p>
+          <StyledQuestionCard className="card" key={index}>
+            <p className="question">{result.question}</p>
             <StyledList>
               <StyledAnswers onClick={wrongAnswer}>
                 {result.incorrect_answers[0]}
